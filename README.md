@@ -19,13 +19,13 @@ Or install it yourself as:
 
 ## Usage
 
-There is only one outward, facing class, Validator.
+There is only one outward-facing class, Validator.
 
 ```ruby
 validator = J2119::Validator.new(schema-file)
 ```
 
-Where ```schema-file``` is the name of a file containig text in the J2119 
+Where ```schema-file``` is the name of a file containing text in the J2119 
 syntax described below. This yields a validator, which can be re-used,
 and should be, since its construction is moderately expensive:
 
@@ -53,19 +53,22 @@ RFC 2119.  It is organized in lines, each terminated with a single full stop.
 There are three formalisms, "roles", "types" and "constraints". For example:
 
 ```
-A Message MUST have a string-array field named "Paragraphs"; each member is a "Paragraph".
+A Message MUST have an object-array field named "Paragraphs"; each member is a "Paragraph".
 ```
 
-In the above line, "Message" and "Paragraph" are roles, "string-array" is a
-type, and the constraint is well-described to a human reading the line.
+In the above assertion, "Message" and "Paragraph" are roles, "string-array" is a
+type; the whole line says that a JSON node with the role "Message" is required
+to have a field named "Paragraphs" whose value is a JSON array containing only
+object values.   It further says that when validating the object members of
+the array, they are considered to have the role "Paragraph".
 
 The first line of the J2119 schema must be of the following form:
 
 ```
-This document specifies a JSON object called a "Whatever".
+This document specifies a JSON object called a "Message".
 ```
 
-This gives the root object the role "Whatever". Descendant nodes can be given
+This gives the root object the role "Message". Descendant nodes can be given
 roles based on their parentage (as in the first J2119 example above) and the
 presence or value of certain fields, and nodes can have multiple roles
 simultaneously.
