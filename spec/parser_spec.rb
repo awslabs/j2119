@@ -28,13 +28,11 @@ require 'j2119/json_path_checker'
 
 describe J2119::Parser do
 
-=begin
   it 'should match ROOT' do
     s = J2119::Parser::ROOT
     s = Regexp.new s
     expect(s.match('This document specifies a JSON object called a "State Machine".')).to be_truthy
   end
-=end
 
   it 'should read them' do
     f = File.open("data/AWL.j2119", "r")
@@ -42,7 +40,6 @@ describe J2119::Parser do
     v = J2119::NodeValidator.new(p)
     explore(v, p)
   end
-
 
   def explore(v, p)
     # just gonna run through the state machine spec exercising each
