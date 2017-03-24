@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'j2119'
-  s.version     = '0.1.0'
+  s.version     = '0.1.1'
   s.date        = '2016-09-28'
   s.summary     = "JSON DSL Validator"
   s.description = "Validates JSON objects based on constraints in RFC2119-like language"
