@@ -30,17 +30,17 @@ module J2119
       "[#{re_classes.join('')}]"
     end
 
-    @@name_re = classes_to_re(INITIAL_NAME_CLASSES) +
+    name_re = classes_to_re(INITIAL_NAME_CLASSES) +
                 classes_to_re(FOLLOWING_NAME_CLASSES) + '*'
-    dot_step = DOT_SEPARATOR + '((' + @@name_re + ')|(\*))'
-    rp_dot_step = DOT_SEPARATOR + @@name_re
-    bracket_step = '\[' + "'" + @@name_re + "'" + '\]'
+    dot_step = DOT_SEPARATOR + '((' + name_re + ')|(\*))'
+    rp_dot_step = DOT_SEPARATOR + name_re
+    bracket_step = '\[' + "'" + name_re + "'" + '\]'
     rp_num_index = '\[\d+\]'
     num_index = '\[\d+(, *\d+)?\]'
     star_index = '\[\*\]'
     colon_index = '\[(-?\d+)?:(-?\d+)?\]'
     index = '((' + num_index + ')|(' + star_index + ')|(' + colon_index + '))'
-    step = '((' + dot_step + ')|(' + bracket_step + '))' + '(' + index + ')?'
+    step = '((' + dot_step + ')|(' + bracket_step + ')|(' + index + '))' + '(' + index + ')?'
     rp_step = '((' + rp_dot_step + ')|(' + bracket_step + '))' + '(' + rp_num_index + ')?'
     path = '^\$' + '(' + step + ')+$'
     reference_path = '^\$' + '(' + rp_step + ')+$'

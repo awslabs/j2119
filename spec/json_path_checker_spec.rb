@@ -22,6 +22,8 @@ describe J2119::JSONPathChecker do
     expect(J2119::JSONPathChecker.is_path?('$..x')).to be_truthy
     expect(J2119::JSONPathChecker.is_path?('$.foo.bar.baz.biff..blecch')).to be_truthy
     expect(J2119::JSONPathChecker.is_path?('$.café_au_lait')).to be_truthy
+    expect(J2119::JSONPathChecker.is_path?("$['foo']")).to be_truthy
+    expect(J2119::JSONPathChecker.is_path?('$[3]')).to be_truthy
   end
 
   it 'should reject obvious botches' do
