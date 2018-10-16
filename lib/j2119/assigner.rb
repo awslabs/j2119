@@ -118,13 +118,13 @@ module J2119
         elsif child_type == 'element' || child_type == 'field'
           @roles.add_grandchild_role(role, field_name, assertion['child_role'])
         end
-      end
-
-
-      # untyped field without a defined child role
-      if field_name && !type && !child_type && modal != 'MUST NOT'
-        @roles.add_grandchild_role(role, field_name, field_name)
-        @allowed_fields.set_any(field_name)
+      else
+        anyOrObjectOrArray = !type || type == 'object' || type == 'array'
+        # untyped field without a defined child role
+        if field_name && anyOrObjectOrArray && modal != 'MUST NOT'
+          @roles.add_grandchild_role(role, field_name, field_name)
+          @allowed_fields.set_any(field_name)
+        end
       end
     end
 
