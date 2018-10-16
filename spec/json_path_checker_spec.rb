@@ -17,6 +17,11 @@ require 'j2119/json_path_checker'
 
 describe J2119::JSONPathChecker do
 
+  it 'should allow default paths' do
+    expect(J2119::JSONPathChecker.is_path?('$')).to be_truthy
+    expect(J2119::JSONPathChecker.is_reference_path?('$')).to be_truthy
+  end
+
   it 'should do simple paths' do
     expect(J2119::JSONPathChecker.is_path?('$.foo.bar')).to be_truthy
     expect(J2119::JSONPathChecker.is_path?('$..x')).to be_truthy

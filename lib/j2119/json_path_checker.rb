@@ -42,8 +42,8 @@ module J2119
     index = '((' + num_index + ')|(' + star_index + ')|(' + colon_index + '))'
     step = '((' + dot_step + ')|(' + bracket_step + ')|(' + index + '))' + '(' + index + ')?'
     rp_step = '((' + rp_dot_step + ')|(' + bracket_step + '))' + '(' + rp_num_index + ')?'
-    path = '^\$' + '(' + step + ')+$'
-    reference_path = '^\$' + '(' + rp_step + ')+$'
+    path = '^\$' + '(' + step + ')*$'
+    reference_path = '^\$' + '(' + rp_step + ')*$'
     @@path_re = Regexp.new(path)
     @@reference_path_re = Regexp.new(reference_path);
 
