@@ -80,5 +80,9 @@ describe J2119::NodeValidator do
     def field_allowed?(r, f)
       true
     end
+
+    def allows_any?(f)
+      false
+    end
 end
 end

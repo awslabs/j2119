@@ -19,6 +19,7 @@ module J2119
 
     def initialize
       @allowed = {}
+      @any = []
     end
 
     def set_allowed(role, child)
@@ -26,9 +27,19 @@ module J2119
       @allowed[role] << child
     end
 
+    def set_any(role)
+      @any << role
+    end
+
     def allowed?(roles, child)
-      roles.any? do |role|
+      any?(roles) || roles.any? do |role|
         @allowed[role] && @allowed[role].include?(child)
+      end
+    end
+
+    def any?(roles)
+      roles.any? do |role|
+        @any.include?(role)
       end
     end
   end
