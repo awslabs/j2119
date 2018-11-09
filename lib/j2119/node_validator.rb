@@ -56,21 +56,21 @@ module J2119
 
         # find inheritance-based roles for that field
         grandchild_roles = @parser.find_grandchild_roles(roles, name)
-
-        # recurse into grandkids
-        if val.is_a? Hash
-          val.each do |child_name, child_val|
-            validate_node(child_val, "#{path}.#{name}.#{child_name}",
-                          grandchild_roles.clone, problems)
+        if !@parser.allows_any?(grandchild_roles)
+          # recurse into grandkids
+          if val.is_a? Hash
+            val.each do |child_name, child_val|
+              validate_node(child_val, "#{path}.#{name}.#{child_name}",
+                            grandchild_roles.clone, problems)
+            end
+          elsif val.is_a? Array
+            i = 0
+            val.each do |member|
+              validate_node(member, "#{path}.#{name}[#{i}]",
+                            grandchild_roles.clone, problems)
+              i += 1
+            end
           end
-        elsif val.is_a? Array
-          i = 0
-          val.each do |member|
-            validate_node(member, "#{path}.#{name}[#{i}]",
-                          grandchild_roles.clone, problems)
-            i += 1
-          end
-          
         end
       end
     end

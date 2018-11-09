@@ -58,6 +58,7 @@ module J2119
       relation = assertion['relation']
       target = assertion['target']
       strings = assertion['strings']
+      child_type = assertion['child_type']
       vals = assertion['vals']
 
       # watch out for conditionals
@@ -110,13 +111,19 @@ module J2119
       end
       
       # there can be role defs there too
-      if assertion['child_type']
+      if child_type
         @matcher.add_role assertion['child_role']
-        child_type = assertion['child_type']
         if child_type == 'value'
           @roles.add_child_role(role, field_name, assertion['child_role'])
         elsif child_type == 'element' || child_type == 'field'
           @roles.add_grandchild_role(role, field_name, assertion['child_role'])
+        end
+      else
+        anyOrObjectOrArray = (!type) || (type == 'object') || (type == 'array')
+        # untyped field without a defined child role
+        if field_name && anyOrObjectOrArray && (modal != 'MUST NOT')
+          @roles.add_grandchild_role(role, field_name, field_name)
+          @allowed_fields.set_any(field_name)
         end
       end
     end

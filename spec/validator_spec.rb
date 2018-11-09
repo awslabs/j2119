@@ -25,6 +25,44 @@ GOOD = '{ ' +
        ' } ' +
        '}'
 
+WITH_ARRAY_RESULT =
+       '{ ' +
+       ' "StartAt": "No-op", ' +
+       ' "States": { ' +
+       '  "No-op": { ' +
+       '   "Type": "Pass", ' +
+       '   "ResultPath": "$.coords", ' +
+       '   "Result": [ ' +
+       '    "foo", ' +
+       '    "bar", ' +
+       '    { ' +
+       '     "bazz": 123 ' +
+       '    } ' +
+       '   ], ' +
+       '   "End": true ' +
+       '  } ' +
+       ' } ' +
+       '} '
+
+WITH_OBJECT_RESULT =
+    '{ ' +
+        ' "StartAt": "No-op", ' +
+        ' "States": { ' +
+        '  "No-op": { ' +
+        '   "Type": "Pass", ' +
+        '   "ResultPath": "$.coords", ' +
+        '   "Result": { ' +
+        '    "foo": { ' +
+        '     "x-datum": 0.381018, ' +
+        '     "y-datum": 622.2269926397355 ' +
+        '    } ' +
+        '   }, ' +
+        '   "End": true ' +
+        '  } ' +
+        ' } ' +
+        '} '
+
+
 SCHEMA = File.dirname(__FILE__) + '/../data/AWL.j2119'
 
 describe J2119::Validator do
@@ -59,5 +97,19 @@ describe J2119::Validator do
     p = v.validate GOOD + 'x'
     expect(p.size).to eq(1)
   end
-  
+
+  it 'should allow Result to have array value' do
+    v = J2119::Validator.new SCHEMA
+    p = v.validate WITH_ARRAY_RESULT
+    p.each {|problem| puts "P: #{problem}"}
+    expect(p.size).to eq(0)
+  end
+
+  it 'should allow Result to have object value' do
+    v = J2119::Validator.new SCHEMA
+    p = v.validate WITH_OBJECT_RESULT
+    p.each {|problem| puts "P: #{problem}"}
+    expect(p.size).to eq(0)
+  end
+
 end

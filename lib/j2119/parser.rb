@@ -97,5 +97,9 @@ module J2119
     def field_allowed?(roles, child)
       @allowed_fields.allowed?(roles, child)
     end
+
+    def allows_any?(roles)
+      @allowed_fields.any?(roles)
+    end
   end
 end
