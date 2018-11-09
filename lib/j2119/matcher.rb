@@ -205,6 +205,9 @@ module J2119
     def build(re, line)
       data = {}
       match = re.match(line)
+      unless match
+        puts "No names for: #{line}"
+      end
       match.names.each do |name|
         data[name] = match[name]
       end
