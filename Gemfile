@@ -1,3 +1,5 @@
 source "https://rubygems.org"
 
-gem 'json', '>=1.7.7'
+gem 'json', '>=2.1.0'
+gem 'rake', '>=12.3.2'
+gem 'rspec', '>=3.8.0'
