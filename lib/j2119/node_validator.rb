@@ -56,7 +56,7 @@ module J2119
 
         # find inheritance-based roles for that field
         grandchild_roles = @parser.find_grandchild_roles(roles, name)
-        if !@parser.allows_any?(grandchild_roles)
+        if (!grandchild_roles.empty?) && (!@parser.allows_any?(grandchild_roles))
           # recurse into grandkids
           if val.is_a? Hash
             val.each do |child_name, child_val|
